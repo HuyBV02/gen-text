@@ -25,10 +25,13 @@ function App() {
   };
 
   const handleCopy = () => {
+
     const message = `Trường Copper, trùm kéo view số một Việt Nam, cảm ơn em ${displayValue} đã tặng quà, chúc em ${displayValue} sức khỏe, chúc gia đình em ${displayValue} bình an công việc thuận lợi, 8 3 8 6 nhá, em ${displayValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
     navigator.clipboard.writeText(message);
     setCopySuccess(true);
     setTimeout(() => setCopySuccess(false), 2000);
+
+
   };
 
   const displayValue = inputValue === "" ? "..." : inputValue;
@@ -77,11 +80,13 @@ function App() {
       <p>
         Trường Copper, trùm kéo view số một Việt Nam, cảm ơn em{" "}
         <span className="red-text">{displayValue}</span> đã tặng quà, chúc em{" "}
+
         <span className="red-text">{displayValue}</span> sức khỏe, chúc gia đình
         em <span className="red-text">{displayValue}</span> bình an công việc
         thuận lợi, 8 3 8 6 nhá, em{" "}
         <span className="red-text">{displayValue}</span> mãi đỉnh, mãi đỉnh, mãi
         đỉnh
+
       </p>
 
       <button onClick={handleCopy} className="copy-button">
