@@ -26,7 +26,7 @@ function App() {
 
   const handleCopy = () => {
 
-    const message = `Trường Copper, trùm kéo view số một Việt Nam, cảm ơn em ${displayValue} đã tặng quà, chúc em ${displayValue} sức khỏe, chúc gia đình em ${displayValue} bình an công việc thuận lợi, 8 3 8 6 nhá, em ${displayValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
+    const message = `Trường Copper, trùm kéo view số một Việt Nam, cảm ơn ${displayValue} đã tặng quà, chúc ${displayValue} sức khỏe, chúc gia đình ${displayValue} bình an công việc thuận lợi, 8 3 8 6 nhá, ${displayValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
     navigator.clipboard.writeText(message);
     setCopySuccess(true);
     setTimeout(() => setCopySuccess(false), 2000);
@@ -37,7 +37,7 @@ function App() {
   const displayValue = inputValue === "" ? "..." : inputValue;
 
   const handleSpeak = () => {
-    const message = `Trường Copper, trùm kéo view số một Việt Nam, cảm ơn em ${displayValue} đã tặng quà, chúc em ${displayValue} sức khỏe, chúc gia đình em ${displayValue} bình an công việc thuận lợi, 8 3 8 6 nhá, em ${displayValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
+    const message = `Trường Copper, trùm kéo view số một Việt Nam, cảm ơn ${displayValue} đã tặng quà, chúc ${displayValue} sức khỏe, chúc gia đình ${displayValue} bình an công việc thuận lợi, 8 3 8 6 nhá, ${displayValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
 
     if ("speechSynthesis" in window) {
       const utterance = new SpeechSynthesisUtterance(message);
