@@ -1,63 +1,54 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./App.css";
 
 function App() {
   const [inputValue, setInputValue] = useState("");
-  const [copySuccess, setCopySuccess] = useState(false);
-  const [voices, setVoices] = useState([]);
-
-  useEffect(() => {
-    // Lấy danh sách các voice có sẵn từ speechSynthesis
-    const synth = window.speechSynthesis;
-
-    const loadVoices = () => {
-      const availableVoices = synth.getVoices();
-      setVoices(availableVoices);
-    };
-
-    // Đảm bảo load danh sách voice khi nó thay đổi
-    synth.onvoiceschanged = loadVoices;
-    loadVoices();
-  }, []);
+  const [audioUrl, setAudioUrl] = useState("");
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleCopy = () => {
 
-    const message = `Trường Copper, trùm kéo view số một Việt Nam, cảm ơn ${displayValue} đã tặng quà, chúc ${displayValue} sức khỏe, chúc gia đình ${displayValue} bình an công việc thuận lợi, 8 3 8 6 nhá, ${displayValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
-    navigator.clipboard.writeText(message);
-    setCopySuccess(true);
-    setTimeout(() => setCopySuccess(false), 2000);
+  const handleSpeak = async () => {
+    const message = `Trường Copper, trùm kéo view số một Việt Nam, cảm ơn ${inputValue} đã tặng quà, chúc ${inputValue} sức khỏe, chúc gia đình ${inputValue} bình an công việc thuận lợi, 8 3 8 6 nhá, ${inputValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
+
+    // Gọi API Google Text-to-Speech
+    const apiKey = "AIzaSyBvsVD3lnMNu57gRCavwAR_yiSILGayuWY"; // Thay YOUR_GOOGLE_API_KEY bằng API Key của bạn
+    const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`;
+
+    const requestBody = {
+      input: {
+        text: message,
+      },
+      voice: {
+        languageCode: "vi-VN",
+        ssmlGender: "FEMALE", // Có thể là MALE, FEMALE, hoặc NEUTRAL
+      },
+      audioConfig: {
+        audioEncoding: "MP3",
+        speakingRate: 1.5, // Đặt tốc độ phát
+      },
+    };
 
 
-  };
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
 
-  const displayValue = inputValue === "" ? "..." : inputValue;
+      const data = await response.json();
+      const audioContent = data.audioContent;
 
-  const handleSpeak = () => {
-    const message = `Trường Copper, trùm kéo view số một Việt Nam, cảm ơn ${displayValue} đã tặng quà, chúc ${displayValue} sức khỏe, chúc gia đình ${displayValue} bình an công việc thuận lợi, 8 3 8 6 nhá, ${displayValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
-
-    if ("speechSynthesis" in window) {
-      const utterance = new SpeechSynthesisUtterance(message);
-
-      // Tìm giọng nữ tiếng Việt
-      const femaleVoice =
-        voices.find(
-          (voice) => voice.lang === "vi-VN" && voice.name.includes("female")
-        ) || voices.find((voice) => voice.lang === "vi-VN"); // fallback nếu không có giọng nữ
-
-      if (femaleVoice) {
-        utterance.voice = femaleVoice; // Cài đặt giọng nữ
-      }
-
-      utterance.lang = "vi-VN"; // Cài đặt ngôn ngữ tiếng Việt
-      utterance.rate = 1.5; // Cài đặt tốc độ
-      utterance.pitch = 2; // Cài đặt cao độ
-      window.speechSynthesis.speak(utterance);
-    } else {
-      alert("Trình duyệt của bạn không hỗ trợ Speech Synthesis.");
+      // Tạo URL cho file âm thanh
+      const audio = new Audio(`data:audio/mp3;base64,${audioContent}`);
+      audio.play(); // Phát âm thanh ngay lập tức
+    } catch (error) {
+      console.error("Error calling Google Text-to-Speech API:", error);
     }
   };
 
@@ -78,33 +69,31 @@ function App() {
         onKeyDown={handleKeyDown} // Bắt sự kiện nhấn phím Enter
       />
       <p>
-        Trường Copper, trùm kéo view số một Việt Nam, cảm ơn em{" "}
-        <span className="red-text">{displayValue}</span> đã tặng quà, chúc em{" "}
 
-        <span className="red-text">{displayValue}</span> sức khỏe, chúc gia đình
-        em <span className="red-text">{displayValue}</span> bình an công việc
-        thuận lợi, 8 3 8 6 nhá, em{" "}
-        <span className="red-text">{displayValue}</span> mãi đỉnh, mãi đỉnh, mãi
+        Trường Copper, trùm kéo view số một Việt Nam, cảm ơn{" "}
+        <span className="red-text">{inputValue}</span> đã tặng quà, chúc{" "}
+        <span className="red-text">{inputValue}</span> sức khỏe, chúc gia đình
+         <span className="red-text">{inputValue}</span> bình an công việc
+        thuận lợi, 8 3 8 6 nhá, {" "}
+        <span className="red-text">{inputValue}</span> mãi đỉnh, mãi đỉnh, mãi
+
         đỉnh
 
       </p>
 
-      <button onClick={handleCopy} className="copy-button">
-        Copy
-      </button>
-      {copySuccess && (
-        <span
-          style={{ color: "green", fontSize: "10px", marginLeft: "5px" }}
-          className="copy-success"
-        >
-          Copy thành công!
-        </span>
-      )}
-
-      {/* Nút để phát giọng nói */}
       <button onClick={handleSpeak} className="speak-button">
         Phát Giọng Nói
       </button>
+
+      {audioUrl && (
+        <div>
+          <h3>Audio Preview:</h3>
+          <audio controls>
+            <source src={audioUrl} type="audio/mp3" />
+            Trình duyệt của bạn không hỗ trợ phát âm thanh.
+          </audio>
+        </div>
+      )}
     </div>
   );
 }
