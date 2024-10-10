@@ -27,7 +27,7 @@ function App() {
       },
       audioConfig: {
         audioEncoding: "MP3",
-        speakingRate: 1.5, // Đặt tốc độ phát
+        speakingRate: 1.1, // Đặt tốc độ phát
       },
     };
 
