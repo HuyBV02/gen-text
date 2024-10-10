@@ -11,7 +11,7 @@ function App() {
 
 
   const handleSpeak = async () => {
-    const message = `Trường Copper, mafia internet trùm kéo view số một Việt Nam, cảm ơn ${inputValue} đã tặng quà, chúc ${inputValue} sức khỏe, chúc gia đình ${inputValue} bình an công việc thuận lợi, 8 3 8 6 nhá, ${inputValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
+    const message = `Trường Copper, mafia internet, trùm kéo view số một Việt Nam, cảm ơn ${inputValue} đã tặng quà, chúc ${inputValue} sức khỏe, chúc gia đình ${inputValue} bình an công việc thuận lợi, 8 3 8 6 nhá, ${inputValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
 
     // Gọi API Google Text-to-Speech
     const apiKey = "AIzaSyBvsVD3lnMNu57gRCavwAR_yiSILGayuWY"; // Thay YOUR_GOOGLE_API_KEY bằng API Key của bạn
@@ -70,7 +70,7 @@ function App() {
       />
       <p>
 
-        Trường Copper, mafia internet trùm kéo view số một Việt Nam, cảm ơn{" "}
+        Trường Copper, mafia internet, trùm kéo view số một Việt Nam, cảm ơn{" "}
         <span className="red-text">{inputValue}</span> đã tặng quà, chúc{" "}
         <span className="red-text">{inputValue}</span> sức khỏe, chúc gia đình
          <span className="red-text">{inputValue}</span> bình an công việc
