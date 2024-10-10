@@ -9,6 +9,7 @@ function App() {
     setInputValue(e.target.value);
   };
 
+
   const handleSpeak = async () => {
     const message = `Trường Copper, trùm kéo view số một Việt Nam, cảm ơn ${inputValue} đã tặng quà, chúc ${inputValue} sức khỏe, chúc gia đình ${inputValue} bình an công việc thuận lợi, 8 3 8 6 nhá, ${inputValue} mãi đỉnh, mãi đỉnh, mãi đỉnh`;
 
@@ -29,6 +30,7 @@ function App() {
         speakingRate: 1.5, // Đặt tốc độ phát
       },
     };
+
 
     try {
       const response = await fetch(url, {
@@ -67,13 +69,16 @@ function App() {
         onKeyDown={handleKeyDown} // Bắt sự kiện nhấn phím Enter
       />
       <p>
+
         Trường Copper, trùm kéo view số một Việt Nam, cảm ơn{" "}
         <span className="red-text">{inputValue}</span> đã tặng quà, chúc{" "}
         <span className="red-text">{inputValue}</span> sức khỏe, chúc gia đình
          <span className="red-text">{inputValue}</span> bình an công việc
         thuận lợi, 8 3 8 6 nhá, {" "}
         <span className="red-text">{inputValue}</span> mãi đỉnh, mãi đỉnh, mãi
+
         đỉnh
+
       </p>
 
       <button onClick={handleSpeak} className="speak-button">
